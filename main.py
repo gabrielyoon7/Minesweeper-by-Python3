@@ -15,5 +15,6 @@ if __name__ == '__main__':
     print("This is first push.")
     print("두번째 푸시 테스트")
     print("세번째 푸시 테스트")
+    print("네번째 푸시 테스트")
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
