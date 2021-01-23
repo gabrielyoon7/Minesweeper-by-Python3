@@ -13,7 +13,7 @@ class GameLogic():
 
     def getLevel(self): #레벨 가져오기(나중에 수정 필요)
         while True:
-            level = input("난이도를 입력하세요 (초보, 중급, 고급):")
+            level = input("난이도를 입력하세요 (초보, 중급, 고급): ")
             if level=='초보':
                 return BEGINNER
             if level=='중급':
