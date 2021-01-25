@@ -1,7 +1,7 @@
 import random
 from settings import *
 
-
+#
 class GameLogic():
     def __init__(self): #게임의 초기화 지점
         pass
@@ -9,7 +9,14 @@ class GameLogic():
     def run(self): # 실행 부분
         level= self.getLevel()
         map = self.createMap(level)
-        self.DisplayMap(map) #콘솔 출력용. GUI랑은 상관 X
+        while True: #
+            self.displayMap(map) #콘솔 출력용. GUI랑은 상관 X
+            x=int(input("X좌표 : "))
+            y=int(input("Y좌표 : "))
+            check=self.checkMine(map, x, y)
+            if check==False:
+                print("패배")
+                break
 
     def getLevel(self): #레벨 가져오기(나중에 수정 필요)
         while True:
@@ -31,6 +38,7 @@ class GameLogic():
         for num in range(mine):
             x = random.randint(0, width - 1) #지뢰의 x축 범위 랜덤으로 설정
             y = random.randint(0, height - 1) #지뢰의 y축 범위 랜덤으로 설정
+            print("[HINT]생성된 지뢰 위치 : (x:", x,", y:",y, ")") #테스트를 용이하게 하기 위해 넣음 (GUI에서는 출력되지 않아야함.)
             arr[y][x] = 'X' #생성된 지뢰 좌표에 X로 표현
 
             #지뢰 주변 힌트 숫자 생성
@@ -60,10 +68,14 @@ class GameLogic():
                     arr[y + 1][x] += 1  # bottom center
         return arr
 
-    def DisplayMap(self, map): #콘솔 출력용 (GUI랑은 상관 없음)
+    def displayMap(self, map): #콘솔 출력용 (GUI랑은 상관 없음)
         for row in map:
             print(" ".join(str(cell) for cell in row))
             print("")
 
-    def Check(self):
+    def checkMine(self, map, x, y): #지뢰 찾는 함수. 이기면 True, 지면 False 라는 의미로 설정함.
+        if map[y][x] == 'X':
+            return False
+        return True
+
 
