@@ -16,11 +16,12 @@ class GameLogic():
             level = input("난이도를 입력하세요 (초보, 중급, 고급): ")
             if level=='초보':
                 return BEGINNER
-            if level=='중급':
+            elif level=='중급':
                 return INTERMEDIATE
-            if level=='고급':
+            elif level=='고급':
                 return ADVANCED
-            print("제대로 입력해주세요.")
+            else:
+                print("제대로 입력해주세요.")
 
     def createMap(self, level): #레벨에 따른 맵 생성 + 레벨에 따른 지뢰 심기 + 지뢰 근처에 적절한 숫자 생성 한번에 처리함.
         width = level[0]
@@ -63,3 +64,6 @@ class GameLogic():
         for row in map:
             print(" ".join(str(cell) for cell in row))
             print("")
+
+    def Check(self):
+
