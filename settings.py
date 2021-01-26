@@ -4,7 +4,7 @@
 #다른 py에서 이 값을 불러오고싶으면 import settings를 해주고, settings.WHITE와 같은 방법으로 불러올 수 있음
 
 #창 크기
-SCREEN_SIZE=(700,700)
+SCREEN_SIZE=[700,700]
 
 #게임 영역 관련
 
