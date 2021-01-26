@@ -1,6 +1,7 @@
 import sys, pygame
 from settings import *
 from pygame.locals import *
+from gameLogic import GameLogic
 #
 class GUI(): #임시. pygame 안써도 됨.
     def __init__(self): #초기화
@@ -10,6 +11,8 @@ class GUI(): #임시. pygame 안써도 됨.
         pygame.init() #pygame 초기화. 초기화를 해야 pygame을 사용할 수 있다고 함.
         self.screen = pygame.display.set_mode(SCREEN_SIZE) #디스플레이 크기 설정
         pygame.display.set_caption('Minesweeper') #프로그램 이름 설정
+        level = BEGINNER
+        arr = GameLogic.createMap(self, level)
         while True:  # main game loop (게임에 필요한 메소드 불러오기)
 
             #필요한 함수를 여기에 다 전부 다 불러와야함.
@@ -21,13 +24,20 @@ class GUI(): #임시. pygame 안써도 됨.
                 if event.type == QUIT:#상단의 X키 누를 때 까지 프로그램 종료 안하고 유지하기 (필수임)
                     pygame.quit()
                     sys.exit()
+            self.draw_Cells(arr)
             pygame.display.update()
 
     def test(self): #예시 보여주려고 넣은거니깐 삭제하거나 수정 바람.
         pass
 
+    def draw_Cells(self,arr):
+        CELL_SIZE = 50
+        COLUMN_COUNT = len(arr[0])
+        ROW_COUNT = len(arr)
+        font = pygame.font.Font(None, 30)
 
-
-
-
-
+        for column_index in range(COLUMN_COUNT):
+            for row_index in range(ROW_COUNT):
+                rect = (CELL_SIZE * column_index, CELL_SIZE * row_index, CELL_SIZE, CELL_SIZE)
+                pygame.draw.rect(self.screen, GRAY, rect)  # 커버
+                pygame.draw.rect(self.screen, BLACK, rect, 1)
