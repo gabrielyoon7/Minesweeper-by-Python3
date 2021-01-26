@@ -1,7 +1,7 @@
 import sys, pygame
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QVBoxLayout, QLabel, QRadioButton, QWidget
-from qtgui import QtGui
+from PyQt5 import QtGui
 from settings import *
 from pygame.locals import *
 from gameLogic import GameLogic

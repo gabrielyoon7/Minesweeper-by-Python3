@@ -12,7 +12,7 @@ class Minesweeper:
 
 #이 프로그램의 시작점
 if __name__ == '__main__':
-    Minesweeper().difficulty()
+    Minesweeper().run()
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
