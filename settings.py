@@ -29,4 +29,4 @@ GRAY = (128, 128, 128)
 CELL_SIZE = 50
 
 #열었던 칸인지 확인
-OPENED = []
+#OPENED = []
