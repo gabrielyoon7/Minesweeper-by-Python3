@@ -1,17 +1,19 @@
 import sys, pygame
+
+import gameLogic
 from settings import *
 from pygame.locals import *
 from gameLogic import GameLogic
 # 내 생각에는 일단 " "(스페이스 한칸)로 채워져 있는 판을 만들고, 해당 칸을 클릭했을 때, map에 있는 해당 칸으로 바꿔주는게 어떨까 싶음.
-
-
-
 
 class GUI(): #임시. pygame 안써도 됨.
     def __init__(self, level): #초기화
         pygame.init()  # pygame 초기화. 초기화를 해야 pygame을 사용할 수 있다고 함.
         super().__init__()
         SCREEN_SIZE=self.getScreenSize(level)
+        SCREEN_WIDTH = self.getScreenSize(level)[0]
+        SCREEN_HEIGHT = self.getScreenSize(level)[1]
+        num = 0
         self.count = 0
         self.screen = pygame.display.set_mode(SCREEN_SIZE)  # 디스플레이 크기 설정
         pygame.display.set_caption('Minesweeper')  # 프로그램 이름 설정
@@ -31,10 +33,26 @@ class GUI(): #임시. pygame 안써도 됨.
                         row_index = event.pos[1] // CELL_SIZE
                         print(column_index, row_index)
                         if arr[column_index][row_index] == 'X':  # 선택된 칸이 X이면 종료, (오류)선택해도 자꾸 open_Cell 함수로 넘어감
-                            self.open_All(arr,OPENED)
+                            self.open_All(arr, OPENED)
                             print("패배")
+                            fail_font = pygame.font.SysFont('malgungothic', 70)
+                            fail_image = fail_font.render('패배', True, RED)
+                            self.screen.blit(fail_image, fail_image.get_rect(centerx=SCREEN_WIDTH // 2,centery=SCREEN_HEIGHT // 2))
                         else:  # 선택된 칸 오픈
                             arr=self.open_Cell(arr,OPENED, column_index, row_index)
+                    elif event.button == 3: # 마우스 우클릭시 깃발
+                        column_index = event.pos[0] // CELL_SIZE
+                        row_index = event.pos[1] // CELL_SIZE
+                        flag_font = pygame.font.SysFont('malgungothic', 30)
+                        flag_image = flag_font.render('V', True, WHITE)
+                        self.screen.blit(flag_image, (column_index * CELL_SIZE + 10, row_index * CELL_SIZE + 10))
+                        while num>4: # 되는지 확실히 모르겠음
+                            if GameLogic().createMap(self) == arr[column_index][row_index]:
+                                num+=1
+                                continue
+                            success_font = pygame.font.SysFont('malgungothic', 70)
+                            success_image = success_font.render('승리', True, RED)
+                            self.screen.blit(success_image,success_image.get_rect(centerx=SCREEN_WIDTH // 2, centery=SCREEN_HEIGHT // 2))
 #               self.draw_Cells(arr)  # 칸 그리기
             pygame.display.update()
 
