@@ -93,7 +93,7 @@ class GUI(): #임시. pygame 안써도 됨.
         print("open_Cell is running9")
         font5 = pygame.font.SysFont('notosanscjkkrblack', 50)
         print("open_Cell is running10")
-        img5 = font5.render(str(cell), True, RED)
+        img5 = font5.render(str(cell), True, BLACK)
         print("open_Cell is running11")
         self.screen.blit(img5, (CELL_SIZE*col+10, CELL_SIZE*row+10))
         return arr
