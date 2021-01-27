@@ -35,9 +35,14 @@ class GameLogic():
         height = level[1]
         mine = level[2]
         arr = [[0 for row in range(width)] for column in range(height)]
-        for num in range(mine):
+        num = 0
+        while num < mine:
             x = random.randint(0, width - 1) #지뢰의 x축 범위 랜덤으로 설정
             y = random.randint(0, height - 1) #지뢰의 y축 범위 랜덤으로 설정
+            print(num)
+            if arr[y][x] == 'X':
+                print(num)
+                continue
             print("[HINT]생성된 지뢰 위치 : (x:", x,", y:",y, ")") #테스트를 용이하게 하기 위해 넣음 (GUI에서는 출력되지 않아야함.)
             arr[y][x] = 'X' #생성된 지뢰 좌표에 X로 표현
 
@@ -66,6 +71,7 @@ class GameLogic():
             if (x >= 0 and x <= width - 1) and (y >= 0 and y <= height - 2):
                 if arr[y + 1][x] != 'X':
                     arr[y + 1][x] += 1  # bottom center
+            num += 1
         return arr
 
     def displayMap(self, map): #콘솔 출력용 (GUI랑은 상관 없음)
