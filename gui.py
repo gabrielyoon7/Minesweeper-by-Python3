@@ -2,7 +2,7 @@ import sys, pygame
 from settings import *
 from pygame.locals import *
 from gameLogic import GameLogic
-
+#
 class GUI(): #임시. pygame 안써도 됨.
     def __init__(self): #초기화
         pygame.init()  # pygame 초기화. 초기화를 해야 pygame을 사용할 수 있다고 함.

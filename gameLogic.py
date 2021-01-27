@@ -1,7 +1,7 @@
 import random
 from settings import *
 
-#
+##
 class GameLogic():
     def __init__(self): #게임의 초기화 지점
         pass
