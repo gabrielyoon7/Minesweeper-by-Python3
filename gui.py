@@ -79,10 +79,8 @@ class GUI(): #임시. pygame 안써도 됨.
         print("open_Cell is running6")
         OPENED[col][row] = True
         print("open_Cell is running7")
-        if cell > 0:#숫자 나오게 함
+        if cell == 0: #셀이 0이면 1 이상의 수가 나올때까지 반복해서 여는 재귀함수 생성 / for 문으로 고쳐야할 듯
             print("open_Cell is running8")
-        elif cell == 0: #셀이 0이면 1 이상의 수가 나올때까지 반복해서 여는 재귀함수 생성 / for 문으로 고쳐야할 듯
-            print("open_Cell is running9")
             self.open_Cell(arr, OPENED, col + 1, row)
             self.open_Cell(arr, OPENED,col, row + 1)
             self.open_Cell(arr, OPENED,col + 1, row + 1)
@@ -91,10 +89,10 @@ class GUI(): #임시. pygame 안써도 됨.
             self.open_Cell(arr, OPENED,col - 1, row - 1)
             self.open_Cell(arr, OPENED,col + 1, row - 1)
             self.open_Cell(arr, OPENED,col - 1, row + 1)
-        print("open_Cell is running10")
+        print("open_Cell is running9")
         font5 = pygame.font.SysFont('notosanscjkkrblack', 50)
-        print("open_Cell is running11")
+        print("open_Cell is running10")
         img5 = font5.render(str(cell), True, RED)
-        print("open_Cell is running12")
+        print("open_Cell is running11")
         self.screen.blit(img5, (CELL_SIZE*col+10, CELL_SIZE*row+10))
         return arr
