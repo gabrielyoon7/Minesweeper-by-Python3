@@ -90,6 +90,5 @@ class GUI(): #임시. pygame 안써도 됨.
         print("open_Cell is running11")
         img5 = font5.render(str(cell), True, RED)
         print("open_Cell is running12")
-        self.screen.blit(img5, (50*col+0, 50*row+0))
-        print("open_Cell is running13")
+        self.screen.blit(img5, (CELL_SIZE*col+10, CELL_SIZE*row+10))
         return arr

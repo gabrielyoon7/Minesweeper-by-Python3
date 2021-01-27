@@ -4,14 +4,14 @@
 #다른 py에서 이 값을 불러오고싶으면 import settings를 해주고, settings.WHITE와 같은 방법으로 불러올 수 있음
 
 #창 크기
-SCREEN_SIZE=[700,700]
+SCREEN_SIZE=[1280,700]
 
 #게임 영역 관련
 
 #난이도에 따른 맵 크기 설정 (가로축, 세로축, 지뢰수)
-BEGINNER = (5,5,1) #5x5사이즈의 맵 크기에 지뢰 1개
-INTERMEDIATE = (10,10,5)
-ADVANCED = (20,10,10)
+BEGINNER = (5,5,5) #5x5사이즈의 맵 크기에 지뢰 1개
+INTERMEDIATE = (10,10,10)
+ADVANCED = (20,10,20)
 
 #색상
 WHITE = (255,255,255)
