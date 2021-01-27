@@ -1,12 +1,9 @@
 import sys, pygame
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QVBoxLayout, QLabel, QRadioButton, QWidget
-from PyQt5 import QtGui
 from settings import *
 from pygame.locals import *
 from gameLogic import GameLogic
 
-class GUI(QWidget): #임시. pygame 안써도 됨.
+class GUI(): #임시. pygame 안써도 됨.
     def __init__(self): #초기화
         pygame.init()  # pygame 초기화. 초기화를 해야 pygame을 사용할 수 있다고 함.
         super().__init__()
@@ -20,17 +17,18 @@ class GUI(QWidget): #임시. pygame 안써도 됨.
             if pygame.event.type == QUIT:  # 상단의 X키 누를 때 까지 프로그램 종료 안하고 유지하기 (필수임)
                 pygame.quit()
                 sys.exit()
-            self.difficulty()
             if pygame.event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.event.button == 1:  # 마우스 왼쪽 클릭시
                     column_index = pygame.event.pos[0] // CELL_SIZE
                     row_index = pygame.event.pos[1] // CELL_SIZE
                     if arr[column_index][row_index] == 'X':  # 선택된 칸이 X이면 종료, (오류)선택해도 자꾸 open_Cell 함수로 넘어감
                         return
-                '''else:  # 선택된 칸 오픈
-                    self.open_Cell(arr, column_index, row_index)'''
+                #else:  # 선택된 칸 오픈
+                #    self.open_Cell(arr, column_index, row_index)'''
             self.draw_Cells(arr)  # 칸 그리기
         pygame.display.update()
+
+
 
     def draw_Cells(self, arr):
         COLUMN_COUNT = len(arr[0])
@@ -42,43 +40,6 @@ class GUI(QWidget): #임시. pygame 안써도 됨.
                 pygame.draw.rect(self.screen, GRAY, rect)
                 pygame.draw.rect(self.screen, BLACK, rect, 1)
 
-    def difficulty(self,arr):
-        self.setGeometry(600, 200, 700, 700)
-        layout = QVBoxLayout()
-        self.setLayout(layout)
-
-        self.label = QLabel("지뢰찾기")
-        self.label.setAlignment(Qt.AlignCenter)
-        self.label.setFont(QtGui.QFont('Hack', 15))
-        layout.addWidget(self.label)
-
-        self.radioButton = QRadioButton("초급")
-        self.radioButton.setChecked(True)
-        self.radioButton.setFont(QtGui.QFont('Hack', 15))
-        self.radioButton.toggled.connect(self.on_clicked)
-        layout.addWidget(self.radioButton)
-
-        self.radioButton = QRadioButton("중급")
-        self.radioButton.setChecked(False)
-        self.radioButton.setFont(QtGui.QFont('Hack', 15))
-        self.radioButton.toggled.connect(self.on_clicked)
-        layout.addWidget(self.radioButton)
-
-        self.radioButton = QRadioButton("고급")
-        self.radioButton.setChecked(False)
-        self.radioButton.setFont(QtGui.QFont('Hack', 15))
-        self.radioButton.toggled.connect(self.on_clicked)
-        layout.addWidget(self.radioButton)
-        self.on_clicked()
-        self.draw_Cells(arr)
-
-    def on_clicked(self):
-        radio = self.sender()
-        if radio.isChecked():
-            self.label.setText(radio.text()+" 선택")
-            print("checked " + radio.text())
-
-    """
     def open_Cell(self,arr,col,row):
         if col < 0 or col >= len(arr) or row < 0 or row >= len(arr[0]):
             return
@@ -99,4 +60,3 @@ class GUI(QWidget): #임시. pygame 안써도 됨.
             self.open_Cell(col - 1, row - 1)
             self.open_Cell(col + 1, row - 1)
             self.open_Cell(col - 1, row + 1)
-            """
