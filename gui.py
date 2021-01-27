@@ -11,7 +11,7 @@ class GUI(): #임시. pygame 안써도 됨.
     def __init__(self, level): #초기화
         pygame.init()  # pygame 초기화. 초기화를 해야 pygame을 사용할 수 있다고 함.
         super().__init__()
-
+        SCREEN_SIZE=self.getScreenSize(level)
         self.count = 0
         self.screen = pygame.display.set_mode(SCREEN_SIZE)  # 디스플레이 크기 설정
         pygame.display.set_caption('Minesweeper')  # 프로그램 이름 설정
@@ -44,6 +44,14 @@ class GUI(): #임시. pygame 안써도 됨.
             return INTERMEDIATE
         elif level=='고급':
             return ADVANCED
+
+    def getScreenSize(self,level):
+        if level=='초급':
+            return SCREEN_SIZE_BEGINNER
+        elif level=='중급':
+            return SCREEN_SIZE_INTERMEDIATE
+        elif level=='고급':
+            return SCREEN_SIZE_ADVANCED
 
 
     def draw_Cells(self, arr):

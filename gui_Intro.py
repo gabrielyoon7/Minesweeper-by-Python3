@@ -1,7 +1,8 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QVBoxLayout, QLabel, QRadioButton, QWidget
 from PyQt5 import QtGui
-#
+from settings import *
+
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
 from PyQt5 import QtGui
@@ -26,40 +27,25 @@ class Window(QWidget):
         self.label.setFont(QtGui.QFont('Hack', 15))
         layout.addWidget(self.label)
 
-        self.radioButton = QRadioButton("초급")
-        self.radioButton.setChecked(True)
-        self.radioButton.setFont(QtGui.QFont('Hack', 15))
-        self.radioButton.toggled.connect(self.on_clicked)
-        layout.addWidget(self.radioButton)
+        # GUI를 실행하는 버튼
+        btnRun0 = QPushButton("초급", self)  # 버튼 텍스트
+        btnRun0.move(BTN_X, BTN_Y)  # 버튼 위치
+        btnRun0.clicked.connect(self.btnRun_clicked_0)  # 클릭 시 실행할 function
 
-        self.radioButton = QRadioButton("중급")
-        self.radioButton.setChecked(False)
-        self.radioButton.setFont(QtGui.QFont('Hack', 15))
-        self.radioButton.toggled.connect(self.on_clicked)
-        layout.addWidget(self.radioButton)
+        btnRun1 = QPushButton("중급", self)  # 버튼 텍스트
+        btnRun1.move(BTN_X, BTN_Y+30)  # 버튼 위치
+        btnRun1.clicked.connect(self.btnRun_clicked_1)  # 클릭 시 실행할 function
 
-        self.radioButton = QRadioButton("고급")
-        self.radioButton.setChecked(False)
-        self.radioButton.setFont(QtGui.QFont('Hack', 15))
-        self.radioButton.toggled.connect(self.on_clicked)
-        layout.addWidget(self.radioButton)
+        btnRun2 = QPushButton("고급", self)  # 버튼 텍스트
+        btnRun2.move(BTN_X, BTN_Y+60)  # 버튼 위치
+        btnRun2.clicked.connect(self.btnRun_clicked_2)  # 클릭 시 실행할 function
 
-        #임시버튼
-        # GUI를 실행하는 임시 버튼 (나중에는 이 화면에서 선택된 난이도를 같이 gui로 넘겨줘야 할 듯)
-        btnRun = QPushButton("GUI 실행하기 (임시)", self)  # 버튼 텍스트
-        btnRun.move(20, 20)  # 버튼 위치
-        btnRun.clicked.connect(self.btnRun_clicked)  # 클릭 시 실행할 function
-
-    def btnRun_clicked(self): #버튼을 눌렀을 때 gui 실행
-        gui.GUI("중급") #여기에 난이도를 주면 gui에서 맵을 자동으로 생성함. 라디오 버튼으로 받은걸 넘겨줄 수 있도록 설계하면 좋을 것 같음.
-
-
-    def on_clicked(self):
-        radio = self.sender()
-        if radio.isChecked():
-            self.label.setText(radio.text()+" 선택")
-            print("checked " + radio.text())
-
+    def btnRun_clicked_0(self): #버튼을 눌렀을 때 gui 실행
+        gui.GUI("초급")
+    def btnRun_clicked_1(self): #버튼을 눌렀을 때 gui 실행
+        gui.GUI("중급")
+    def btnRun_clicked_2(self): #버튼을 눌렀을 때 gui 실행
+        gui.GUI("고급")
 
 app = QApplication(sys.argv)
 screen = Window()

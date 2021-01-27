@@ -4,7 +4,9 @@
 #다른 py에서 이 값을 불러오고싶으면 import settings를 해주고, settings.WHITE와 같은 방법으로 불러올 수 있음
 
 #창 크기
-SCREEN_SIZE=[1280,700]
+SCREEN_SIZE_BEGINNER=[250,250]
+SCREEN_SIZE_INTERMEDIATE=[500,500]
+SCREEN_SIZE_ADVANCED=[1000,500]
 
 #게임 영역 관련
 
@@ -28,5 +30,6 @@ GRAY = (128, 128, 128)
 #셀 크기
 CELL_SIZE = 50
 
-#열었던 칸인지 확인
-#OPENED = []
+#intro 버튼 위치
+BTN_X = 50
+BTN_Y = 250
