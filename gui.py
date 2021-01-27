@@ -46,7 +46,7 @@ class GUI(): #임시. pygame 안써도 됨.
                         flag_font = pygame.font.SysFont('malgungothic', 30)
                         flag_image = flag_font.render('V', True, WHITE)
                         self.screen.blit(flag_image, (column_index * CELL_SIZE + 10, row_index * CELL_SIZE + 10))
-                        while num>4: # 되는지 확실히 모르겠음
+                        while num>4: # 승리표시가 되는지 확실히 모르겠음
                             if GameLogic().createMap(self) == arr[column_index][row_index]:
                                 num+=1
                                 continue
