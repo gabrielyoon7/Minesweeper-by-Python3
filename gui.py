@@ -8,14 +8,14 @@ from gameLogic import GameLogic
 
 
 class GUI(): #임시. pygame 안써도 됨.
-    def __init__(self): #초기화
+    def __init__(self, level): #초기화
         pygame.init()  # pygame 초기화. 초기화를 해야 pygame을 사용할 수 있다고 함.
         super().__init__()
         self.count = 0
         self.screen = pygame.display.set_mode(SCREEN_SIZE)  # 디스플레이 크기 설정
         pygame.display.set_caption('Minesweeper')  # 프로그램 이름 설정
-        level = BEGINNER
-        arr = GameLogic.createMap(self, level) #맵을 생성하고 저장
+        gameLevel=self.getLevel(level) #레벨을 tuple 형태로 받아옴.
+        arr = GameLogic.createMap(self, gameLevel) #맵을 생성하고 저장
         OPENED = [[False for row in range(len(arr))] for column in range(len(arr[0]))]
         while True:  # main game loop (게임에 필요한 메소드 불러오기)
             for event in pygame.event.get(): #창 안의 이벤트를 받는 영역. 예를 들면 종료키, 키보드키, 마우스 클릭 등
@@ -26,6 +26,7 @@ class GUI(): #임시. pygame 안써도 됨.
                     if event.button == 1:  # 마우스 왼쪽 클릭시
                         column_index = event.pos[0] // CELL_SIZE
                         row_index = event.pos[1] // CELL_SIZE
+                        print(column_index, row_index)
                         if arr[column_index][row_index] == 'X':  # 선택된 칸이 X이면 종료, (오류)선택해도 자꾸 open_Cell 함수로 넘어감
                             print("패배")
                         else:  # 선택된 칸 오픈
@@ -35,9 +36,16 @@ class GUI(): #임시. pygame 안써도 됨.
                 self.draw_Cells(arr)  # 칸 그리기
             pygame.display.update()
 
+    def getLevel(self, level): #레벨 가져오기(나중에 수정 필요)
+        if level=='초급':
+            return BEGINNER
+        elif level=='중급':
+            return INTERMEDIATE
+        elif level=='고급':
+            return ADVANCED
+
 
     def draw_Cells(self, arr):
-        print("draw_Cells is runnig")
         COLUMN_COUNT = len(arr[0])
         ROW_COUNT = len(arr)
 

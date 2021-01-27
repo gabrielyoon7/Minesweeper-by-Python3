@@ -51,7 +51,7 @@ class Window(QWidget):
         btnRun.clicked.connect(self.btnRun_clicked)  # 클릭 시 실행할 function
 
     def btnRun_clicked(self): #버튼을 눌렀을 때 gui 실행
-        gui.GUI()
+        gui.GUI("초급") #여기에 난이도를 주면 gui에서 맵을 자동으로 생성함. 라디오 버튼으로 받은걸 넘겨줄 수 있도록 설계하면 좋을 것 같음.
 
 
     def on_clicked(self):
