@@ -31,6 +31,7 @@ class GUI(): #임시. pygame 안써도 됨.
                         row_index = event.pos[1] // CELL_SIZE
                         print(column_index, row_index)
                         if arr[column_index][row_index] == 'X':  # 선택된 칸이 X이면 종료, (오류)선택해도 자꾸 open_Cell 함수로 넘어감
+                            self.open_All(arr,OPENED)
                             print("패배")
                         else:  # 선택된 칸 오픈
                             arr=self.open_Cell(arr,OPENED, column_index, row_index)
@@ -96,3 +97,8 @@ class GUI(): #임시. pygame 안써도 됨.
         print("open_Cell is running11")
         self.screen.blit(img5, (CELL_SIZE*col+10, CELL_SIZE*row+10))
         return arr
+
+    def open_All(self,arr,OPENED):
+        for i in range(len(arr)):
+            for j in range(len(arr[0])):
+                self.open_Cell(arr,OPENED,i,j)
