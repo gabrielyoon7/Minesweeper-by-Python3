@@ -25,7 +25,7 @@ class GUI(): #임시. pygame 안써도 됨.
                 if event.type == QUIT:#상단의 X키 누를 때 까지 프로그램 종료 안하고 유지하기 (필수임)
                     pygame.quit()
                     sys.exit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
+                elif event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:  # 마우스 왼쪽 클릭시
                         column_index = event.pos[0] // CELL_SIZE
                         row_index = event.pos[1] // CELL_SIZE
@@ -34,7 +34,7 @@ class GUI(): #임시. pygame 안써도 됨.
                             print("패배")
                         else:  # 선택된 칸 오픈
                             arr=self.open_Cell(arr,OPENED, column_index, row_index)
-#                self.draw_Cells(arr)  # 칸 그리기
+#               self.draw_Cells(arr)  # 칸 그리기
             pygame.display.update()
 
     def getLevel(self, level): #레벨 가져오기(나중에 수정 필요)
@@ -73,8 +73,6 @@ class GUI(): #임시. pygame 안써도 됨.
         print("open_Cell is running7")
         if cell > 0:#숫자 나오게 함
             print("open_Cell is running8")
-            rect = (CELL_SIZE * col, CELL_SIZE * row, CELL_SIZE, CELL_SIZE)
-            pygame.draw.rect(self.screen, CYAN, rect)
         elif cell == 0: #셀이 0이면 1 이상의 수가 나올때까지 반복해서 여는 재귀함수 생성 / for 문으로 고쳐야할 듯
             print("open_Cell is running9")
             self.open_Cell(arr, OPENED, col + 1, row)
