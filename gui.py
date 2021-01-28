@@ -13,13 +13,13 @@ class GUI(): #임시. pygame 안써도 됨.
         SCREEN_SIZE=self.getScreenSize(level)
         SCREEN_WIDTH = self.getScreenSize(level)[0]
         SCREEN_HEIGHT = self.getScreenSize(level)[1]
-        num = 0
         self.count = 0
         self.screen = pygame.display.set_mode(SCREEN_SIZE)  # 디스플레이 크기 설정
         pygame.display.set_caption('Minesweeper')  # 프로그램 이름 설정
         gameLevel=self.getLevel(level) #레벨을 tuple 형태로 받아옴.
         arr = GameLogic.createMap(self, gameLevel) #맵을 생성하고 저장
-        OPENED = [[False for column in range(len(arr[0]))] for row in range(len(arr))]
+        OPENED = [[False for column in range(len(arr[0]))] for row in range(len(arr))] #오픈한 칸인지 확인
+        CHECKED = [[False for column in range(len(arr[0]))] for row in range(len(arr))] #깃발을 체크한 칸인지 확인
         self.draw_Cells(arr)  # 칸 그리기
 
         while True:  # main game loop (게임에 필요한 메소드 불러오기)
@@ -31,6 +31,7 @@ class GUI(): #임시. pygame 안써도 됨.
                     if event.button == 1:  # 마우스 왼쪽 클릭시
                         column_index = event.pos[0] // CELL_SIZE
                         row_index = event.pos[1] // CELL_SIZE
+                        num = 0
                         print(column_index, row_index)
                         if arr[row_index][column_index] == 'X':  # 선택된 칸이 X이면 종료
                             self.open_All(arr, OPENED) #모든 칸 열기
@@ -39,20 +40,25 @@ class GUI(): #임시. pygame 안써도 됨.
                             fail_image = fail_font.render('패배', True, RED)
                             self.screen.blit(fail_image, fail_image.get_rect(centerx=SCREEN_WIDTH // 2,centery=SCREEN_HEIGHT // 2))
                         else:  # 선택된 칸 오픈
-                            arr=self.open_Cell(arr,OPENED, column_index, row_index)
+                            OPENED=self.open_Cell(arr,OPENED, column_index, row_index)
                     elif event.button == 3: # 마우스 우클릭시 깃발
                         column_index = event.pos[0] // CELL_SIZE
                         row_index = event.pos[1] // CELL_SIZE
                         flag_font = pygame.font.SysFont('malgungothic', 30)
                         flag_image = flag_font.render('V', True, WHITE)
-                        self.screen.blit(flag_image, (column_index * CELL_SIZE + 10, row_index * CELL_SIZE + 10))
-                        while num>4: # 승리표시가 되는지 확실히 모르겠음
+                        if CHECKED[row_index][column_index]: #이미 깃발이 체크된 칸을 선택시 체크 지우기
+                            flag_image.fill(GRAY)
+                            CHECKED[row_index][column_index] = False
+                        else:
+                            CHECKED[row_index][column_index] = True
+                        self.screen.blit(flag_image, (column_index * CELL_SIZE + 10, row_index * CELL_SIZE + 5))
+                        '''while num>4: # 승리표시가 되는지 확실히 모르겠음
                             if GameLogic().createMap(self) == arr[row_index][column_index]:
                                 num+=1
                                 continue
                             success_font = pygame.font.SysFont('malgungothic', 70)
                             success_image = success_font.render('승리', True, RED)
-                            self.screen.blit(success_image,success_image.get_rect(centerx=SCREEN_WIDTH // 2, centery=SCREEN_HEIGHT // 2))
+                            self.screen.blit(success_image,success_image.get_rect(centerx=SCREEN_WIDTH // 2, centery=SCREEN_HEIGHT // 2))'''
 #               self.draw_Cells(arr)  # 칸 그리기
             pygame.display.update()
 
@@ -114,7 +120,7 @@ class GUI(): #임시. pygame 안써도 됨.
         img5 = font5.render(str(cell), True, BLACK)
         print("open_Cell is running11")
         self.screen.blit(img5, (CELL_SIZE*col+10, CELL_SIZE*row+10))
-        return arr
+        return OPENED
 
     def open_All(self,arr,OPENED):
         for i in range(len(arr)):
