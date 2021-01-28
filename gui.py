@@ -19,7 +19,7 @@ class GUI(): #임시. pygame 안써도 됨.
         pygame.display.set_caption('Minesweeper')  # 프로그램 이름 설정
         gameLevel=self.getLevel(level) #레벨을 tuple 형태로 받아옴.
         arr = GameLogic.createMap(self, gameLevel) #맵을 생성하고 저장
-        OPENED = [[False for row in range(len(arr))] for column in range(len(arr[0]))]
+        OPENED = [[False for column in range(len(arr[0]))] for row in range(len(arr))]
         self.draw_Cells(arr)  # 칸 그리기
 
         while True:  # main game loop (게임에 필요한 메소드 불러오기)
@@ -32,8 +32,8 @@ class GUI(): #임시. pygame 안써도 됨.
                         column_index = event.pos[0] // CELL_SIZE
                         row_index = event.pos[1] // CELL_SIZE
                         print(column_index, row_index)
-                        if arr[column_index][row_index] == 'X':  # 선택된 칸이 X이면 종료, (오류)선택해도 자꾸 open_Cell 함수로 넘어감
-                            self.open_All(arr, OPENED)
+                        if arr[row_index][column_index] == 'X':  # 선택된 칸이 X이면 종료
+                            self.open_All(arr, OPENED) #모든 칸 열기
                             print("패배")
                             fail_font = pygame.font.SysFont('malgungothic', 70)
                             fail_image = fail_font.render('패배', True, RED)
@@ -47,7 +47,7 @@ class GUI(): #임시. pygame 안써도 됨.
                         flag_image = flag_font.render('V', True, WHITE)
                         self.screen.blit(flag_image, (column_index * CELL_SIZE + 10, row_index * CELL_SIZE + 10))
                         while num>4: # 승리표시가 되는지 확실히 모르겠음
-                            if GameLogic().createMap(self) == arr[column_index][row_index]:
+                            if GameLogic().createMap(self) == arr[row_index][column_index]:
                                 num+=1
                                 continue
                             success_font = pygame.font.SysFont('malgungothic', 70)
@@ -86,17 +86,17 @@ class GUI(): #임시. pygame 안써도 됨.
     def open_Cell(self,arr,OPENED,col,row):
 
         print("open_Cell is running1")
-        if col < 0 or col >= len(arr) or row < 0 or row >= len(arr[0]):
+        if col < 0 or col >= len(arr[0]) or row < 0 or row >= len(arr):
             print("open_Cell is running2")
             return arr
         print("open_Cell is running3")
-        cell = arr[col][row]  # 선택된 칸
+        cell = arr[row][col]  # 선택된 칸
         print("open_Cell is running4")
-        if OPENED[col][row]: #이미 확인한 칸 여기서 자꾸 오류 생김
+        if OPENED[row][col]: #이미 확인한 칸
             print("open_Cell is running5")
             return arr
         print("open_Cell is running6")
-        OPENED[col][row] = True
+        OPENED[row][col] = True
         print("open_Cell is running7")
         if cell == 0: #셀이 0이면 1 이상의 수가 나올때까지 반복해서 여는 재귀함수 생성 / for 문으로 고쳐야할 듯
             print("open_Cell is running8")
@@ -119,4 +119,4 @@ class GUI(): #임시. pygame 안써도 됨.
     def open_All(self,arr,OPENED):
         for i in range(len(arr)):
             for j in range(len(arr[0])):
-                self.open_Cell(arr,OPENED,i,j)
+                self.open_Cell(arr,OPENED,j,i)
