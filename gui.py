@@ -41,6 +41,17 @@ class GUI(): #임시. pygame 안써도 됨.
                             self.screen.blit(fail_image, fail_image.get_rect(centerx=SCREEN_WIDTH // 2,centery=SCREEN_HEIGHT // 2))
                         else:  # 선택된 칸 오픈
                             OPENED=self.open_Cell(arr,OPENED, column_index, row_index)
+                        for i in range(len(arr)): #열리지 않은 칸 수 셈
+                            for j in range(len(arr[0])):
+                                if not OPENED[j][i]:
+                                    num += 1
+                                    print(num)
+                        if num == gameLevel[2]: #열리지 않은 칸의 수와 지뢰의 수가 같으면 성공 출력 == 지뢰가 없는 칸 모두 오픈
+                            success_font = pygame.font.SysFont('malgungothic', 70)
+                            success_image = success_font.render('승리', True, RED)
+                            self.screen.blit(success_image,
+                                             success_image.get_rect(centerx=SCREEN_WIDTH // 2,
+                                                                    centery=SCREEN_HEIGHT // 2))
                     elif event.button == 3: # 마우스 우클릭시 깃발
                         column_index = event.pos[0] // CELL_SIZE
                         row_index = event.pos[1] // CELL_SIZE
