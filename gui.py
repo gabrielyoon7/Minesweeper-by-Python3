@@ -43,9 +43,8 @@ class GUI(): #임시. pygame 안써도 됨.
                             OPENED=self.open_Cell(arr,OPENED, column_index, row_index)
                         for i in range(len(arr)): #열리지 않은 칸 수 셈
                             for j in range(len(arr[0])):
-                                if not OPENED[j][i]:
+                                if not OPENED[i][j]:
                                     num += 1
-                                    print(num)
                         if num == gameLevel[2]: #열리지 않은 칸의 수와 지뢰의 수가 같으면 성공 출력 == 지뢰가 없는 칸 모두 오픈
                             success_font = pygame.font.SysFont('malgungothic', 70)
                             success_image = success_font.render('승리', True, RED)
