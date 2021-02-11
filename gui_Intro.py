@@ -1,18 +1,19 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QVBoxLayout, QLabel, QRadioButton, QWidget
-from PyQt5 import QtGui
-from settings import *
+from PyQt5.QtWidgets import QVBoxLayout, QLabel
+from MineSweeper.settings import *
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
 from PyQt5 import QtGui
-import sys, gui
+import sys
+from MineSweeper import gui
+
 
 #첫 난이도를 정하는 부분.
 #여기에서 난이도를 gui로 넘겨야 할 것 같음.
 
 class Window(QWidget):
     def __init__(self):
+        print("intro")
         super().__init__()
         self.count = 0
         self.initialize()

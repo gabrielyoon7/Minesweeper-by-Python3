@@ -1,5 +1,5 @@
 import random
-from settings import *
+from MineSweeper.settings import *
 
 ##
 class GameLogic():
